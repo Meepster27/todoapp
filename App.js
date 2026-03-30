@@ -8,9 +8,11 @@ import {
   View,
   FlatList,
   Pressable,
+  ScrollView,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import Task from './components/Task';
 
 const initialTodos = [
   { id: '1', text: 'Learn Flexbox layout', completed: false },
@@ -45,54 +47,53 @@ export default function App() {
   };
 
   const renderItem = ({ item }) => (
-    <View style={[styles.todoItem, item.completed && styles.todoItemDone]}>
-      <Pressable style={styles.todoTextArea} onPress={() => toggleTodo(item.id)}>
-        <Text style={[styles.todoText, item.completed && styles.todoTextDone]}>
-          {item.text}
-        </Text>
-      </Pressable>
-      <Pressable style={styles.deleteButton} onPress={() => deleteTodo(item.id)}>
-        <Text style={styles.deleteLabel}>Delete</Text>
-      </Pressable>
-    </View>
+    <Task
+      text={item.text}
+      completed={item.completed}
+      onToggle={() => toggleTodo(item.id)}
+      onDelete={() => deleteTodo(item.id)}
+    />
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
-      <View style={styles.header}>
-        <Text style={styles.title}>Todo App</Text>
-        <Text style={styles.subtitle}>{todos.length} task{todos.length === 1 ? '' : 's'}</Text>
+
+      {/* Input Section */}
+      <View style={styles.tasksWrapper}>
+        <TextInput
+          style={styles.input}
+          placeholder="Write a task"
+          value={text}
+          onChangeText={setText}
+          onSubmitEditing={addTodo}
+          returnKeyType="done"
+        />
+        <Pressable style={styles.addButton} onPress={addTodo}>
+          <Text style={styles.addButtonText}>+</Text>
+        </Pressable>
       </View>
 
-      <KeyboardAvoidingView
-        style={styles.content}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <View style={styles.inputRow}>
-          <TextInput
-            style={styles.input}
-            placeholder="Add a new task"
-            value={text}
-            onChangeText={setText}
-            onSubmitEditing={addTodo}
-            returnKeyType="done"
-          />
-          <Pressable style={styles.addButton} onPress={addTodo}>
-            <Text style={styles.addButtonText}>Add</Text>
-          </Pressable>
+      {/* Today's Tasks Section */}
+      <View style={styles.tasksWrapper}>
+        <Text style={styles.sectionTitle}>Today's Tasks</Text>
+        <View style={styles.items}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {todos.map((item) => (
+              <Task
+                key={item.id}
+                text={item.text}
+                completed={item.completed}
+                onToggle={() => toggleTodo(item.id)}
+                onDelete={() => deleteTodo(item.id)}
+              />
+            ))}
+            {todos.length === 0 && (
+              <Text style={styles.emptyText}>No tasks yet. Add one above!</Text>
+            )}
+          </ScrollView>
         </View>
-
-        <FlatList
-          data={todos}
-          keyExtractor={item => item.id}
-          renderItem={renderItem}
-          contentContainerStyle={styles.list}
-          ListEmptyComponent={
-            <Text style={styles.emptyText}>No todos yet. Add one above.</Text>
-          }
-        />
-      </KeyboardAvoidingView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -100,97 +101,56 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#e8f4f8',
+  },
+  tasksWrapper: {
+    paddingTop: 30,
     paddingHorizontal: 20,
-    paddingTop: 24,
   },
-  header: {
-    marginBottom: 18,
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 15,
   },
-  title: {
-    fontSize: 32,
-    fontWeight: '800',
-    color: '#0f172a',
-  },
-  subtitle: {
-    marginTop: 4,
-    fontSize: 16,
-    color: '#475569',
-  },
-  content: {
+  items: {
+    marginTop: 30,
+    marginBottom: 20,
     flex: 1,
-  },
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 18,
   },
   input: {
-    flex: 1,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
     backgroundColor: '#fff',
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
+    borderRadius: 10,
+    borderColor: '#c0c0c0',
     borderWidth: 1,
-    borderColor: '#cbd5e1',
+    fontSize: 16,
+    flex: 1,
     marginRight: 10,
   },
   addButton: {
-    backgroundColor: '#2563eb',
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    borderRadius: 14,
+    width: 60,
+    height: 60,
+    backgroundColor: '#55BCF6',
+    borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
   addButtonText: {
+    fontSize: 30,
     color: '#fff',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-  list: {
-    paddingBottom: 20,
-  },
-  todoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
-  },
-  todoItemDone: {
-    backgroundColor: '#e0f2fe',
-  },
-  todoTextArea: {
-    flex: 1,
-    marginRight: 12,
-  },
-  todoText: {
-    fontSize: 16,
-    color: '#0f172a',
-  },
-  todoTextDone: {
-    textDecorationLine: 'line-through',
-    color: '#64748b',
-  },
-  deleteButton: {
-    backgroundColor: '#ef4444',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 12,
-  },
-  deleteLabel: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 12,
+    fontWeight: 'bold',
   },
   emptyText: {
-    color: '#64748b',
+    color: '#999',
     textAlign: 'center',
-    marginTop: 40,
+    marginTop: 20,
     fontSize: 16,
   },
 });
