@@ -13,7 +13,6 @@ import {
   Platform,
 } from 'react-native';
 import Task from './components/Task';
-import Header from './components/Header';
 
 const initialTodos = [
   { id: '1', text: 'Learn Flexbox layout', completed: false },
@@ -61,7 +60,9 @@ export default function App() {
       <StatusBar style="dark" />
 
       {/* Header */}
-      <Header />
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Today's Tasks</Text>
+      </View>
 
       {/* Input Section */}
       <KeyboardAvoidingView
@@ -113,6 +114,16 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingTop: 30,
+  },
+  header: {
+    paddingTop: 30,
+    paddingHorizontal: 20,
+    marginBottom: 15,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
   },
   tasksWrapper: {
     paddingHorizontal: 20,
