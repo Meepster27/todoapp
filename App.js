@@ -60,22 +60,27 @@ export default function App() {
       <StatusBar style="dark" />
 
       {/* Input Section */}
-      <View style={styles.tasksWrapper}>
-        <TextInput
-          style={styles.input}
-          placeholder="Write a task"
-          value={text}
-          onChangeText={setText}
-          onSubmitEditing={addTodo}
-          returnKeyType="done"
-        />
-        <Pressable style={styles.addButton} onPress={addTodo}>
-          <Text style={styles.addButtonText}>+</Text>
-        </Pressable>
-      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.inputContainer}
+      >
+        <View style={styles.tasksWrapper}>
+          <TextInput
+            style={styles.input}
+            placeholder="Write a task"
+            value={text}
+            onChangeText={setText}
+            onSubmitEditing={addTodo}
+            returnKeyType="done"
+          />
+          <Pressable style={styles.addButton} onPress={addTodo}>
+            <Text style={styles.addButtonText}>+</Text>
+          </Pressable>
+        </View>
+      </KeyboardAvoidingView>
 
       {/* Today's Tasks Section */}
-      <View style={styles.tasksWrapper}>
+      <View style={[styles.tasksWrapper, { paddingTop: 30 }]}>
         <Text style={styles.sectionTitle}>Today's Tasks</Text>
         <View style={styles.items}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -103,9 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#e8f4f8',
   },
-  tasksWrapper: {
+  inputContainer: {
     paddingTop: 30,
+  },
+  tasksWrapper: {
     paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 24,
