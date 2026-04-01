@@ -60,6 +60,9 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
 
+      {/* Header */}
+      <Header />
+
       {/* Input Section */}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -79,9 +82,6 @@ export default function App() {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
-
-      {/* Header */}
-      <Header />
 
       {/* Today's Tasks Section */}
       <View style={styles.tasksWrapper}>
