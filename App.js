@@ -13,6 +13,7 @@ import {
   Platform,
 } from 'react-native';
 import Task from './components/Task';
+import Header from './components/Header';
 
 const initialTodos = [
   { id: '1', text: 'Learn Flexbox layout', completed: false },
@@ -79,9 +80,11 @@ export default function App() {
         </View>
       </KeyboardAvoidingView>
 
+      {/* Header */}
+      <Header />
+
       {/* Today's Tasks Section */}
-      <View style={[styles.tasksWrapper, { paddingTop: 30 }]}>
-        <Text style={styles.sectionTitle}>Today's Tasks</Text>
+      <View style={styles.tasksWrapper}>
         <View style={styles.items}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {todos.map((item) => (
@@ -115,12 +118,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 15,
   },
   items: {
     marginTop: 30,
