@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e8f4f8',
-    paddingBottom: 100,
   },
   inputContainer: {
     position: 'absolute',
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 10,
   },
   header: {
     paddingTop: 30,
@@ -138,14 +138,12 @@ const styles = StyleSheet.create({
   },
   tasksWrapper: {
     paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    flex: 1,
   },
   items: {
+    flex: 1,
     marginTop: 30,
     marginBottom: 20,
-    flex: 1,
   },
   input: {
     paddingVertical: 15,
