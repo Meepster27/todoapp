@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingHorizontal: 20,
-    paddingVertical: Platform.OS === 'ios' ? 30 : 20,
-    paddingBottom: Platform.OS === 'ios' ? 40 : 25,
+    paddingVertical: Platform.OS === 'ios' ? 40 : 30,
+    paddingBottom: Platform.OS === 'ios' ? 50 : 35,
     backgroundColor: '#e8f4f8',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
