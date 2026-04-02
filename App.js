@@ -56,33 +56,35 @@ export default function App() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="dark" />
+    <View style={styles.container}>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="dark" />
 
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Today's Tasks</Text>
-      </View>
-
-      {/* Today's Tasks Section */}
-      <View style={styles.tasksWrapper}>
-        <View style={styles.items}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {todos.map((item) => (
-              <Task
-                key={item.id}
-                text={item.text}
-                completed={item.completed}
-                onToggle={() => toggleTodo(item.id)}
-                onDelete={() => deleteTodo(item.id)}
-              />
-            ))}
-            {todos.length === 0 && (
-              <Text style={styles.emptyText}>No tasks yet. Add one above!</Text>
-            )}
-          </ScrollView>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Today's Tasks</Text>
         </View>
-      </View>
+
+        {/* Today's Tasks Section */}
+        <View style={styles.tasksWrapper}>
+          <View style={styles.items}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {todos.map((item) => (
+                <Task
+                  key={item.id}
+                  text={item.text}
+                  completed={item.completed}
+                  onToggle={() => toggleTodo(item.id)}
+                  onDelete={() => deleteTodo(item.id)}
+                />
+              ))}
+              {todos.length === 0 && (
+                <Text style={styles.emptyText}>No tasks yet. Add one above!</Text>
+              )}
+            </ScrollView>
+          </View>
+        </View>
+      </SafeAreaView>
 
       {/* Input Section */}
       <KeyboardAvoidingView
@@ -103,7 +105,7 @@ export default function App() {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -112,10 +114,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#e8f4f8',
   },
+  safeArea: {
+    flex: 1,
+  },
   inputContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
     paddingHorizontal: 20,
     paddingVertical: 15,
     backgroundColor: '#e8f4f8',
