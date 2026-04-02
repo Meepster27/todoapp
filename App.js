@@ -64,26 +64,6 @@ export default function App() {
         <Text style={styles.headerTitle}>Today's Tasks</Text>
       </View>
 
-      {/* Input Section */}
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.inputContainer}
-      >
-        <View style={styles.tasksWrapper}>
-          <TextInput
-            style={styles.input}
-            placeholder="Write a task"
-            value={text}
-            onChangeText={setText}
-            onSubmitEditing={addTodo}
-            returnKeyType="done"
-          />
-          <Pressable style={styles.addButton} onPress={addTodo}>
-            <Text style={styles.addButtonText}>+</Text>
-          </Pressable>
-        </View>
-      </KeyboardAvoidingView>
-
       {/* Today's Tasks Section */}
       <View style={styles.tasksWrapper}>
         <View style={styles.items}>
@@ -103,6 +83,26 @@ export default function App() {
           </ScrollView>
         </View>
       </View>
+
+      {/* Input Section */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.inputContainer}
+      >
+        <View style={styles.tasksWrapper}>
+          <TextInput
+            style={styles.input}
+            placeholder="Write a task"
+            value={text}
+            onChangeText={setText}
+            onSubmitEditing={addTodo}
+            returnKeyType="done"
+          />
+          <Pressable style={styles.addButton} onPress={addTodo}>
+            <Text style={styles.addButtonText}>+</Text>
+          </Pressable>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
