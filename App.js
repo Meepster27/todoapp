@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e8f4f8',
+    flexDirection: 'column',
   },
   safeArea: {
     flex: 1,
@@ -121,6 +122,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     backgroundColor: '#e8f4f8',
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    width: '100%',
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -141,6 +145,7 @@ const styles = StyleSheet.create({
   tasksWrapper: {
     paddingHorizontal: 20,
     flex: 1,
+    flexDirection: 'column',
   },
   items: {
     flex: 1,
