@@ -89,7 +89,7 @@ export default function App() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.inputContainer}
       >
-        <View style={styles.tasksWrapper}>
+        <View style={styles.inputWrapper}>
           <TextInput
             style={styles.input}
             placeholder="Write a task"
@@ -111,9 +111,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e8f4f8',
+    paddingBottom: 100,
   },
   inputContainer: {
-    paddingTop: 30,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: '#e8f4f8',
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   header: {
     paddingTop: 30,
